@@ -6,5 +6,6 @@ target 'NewYorkTimesDemo' do
   use_frameworks!
 
   # Pods for NewYorkTimesDemo
-  pod 'SwiftyJSON', '~> 4.0'
+  pod 'Alamofire', '~> 4.7'
+  pod 'AlamofireObjectMapper', '~> 5.0'
 end
