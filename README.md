@@ -25,7 +25,7 @@ Change the signing to your developer account.
 Your should able to run the project on your phone or simulator now.
 
 
-## Dependencies
+## Dependencies used
 
 * [Alamofire](https://github.com/Alamofire/Alamofire) - HTTP Networking
 * [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper) - Objectmapper
