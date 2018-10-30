@@ -18,14 +18,6 @@ The app caches data locally for offline use, cache data is updated everytime whe
 
 Clone the project into your local repository
 
-Use terminal and navigate to the project repo, and run
-
-```
-pod install
-```
-
-to install dependencies
-
 After finish, open the workspace xcode project.
 
 Change the signing to your developer account.
