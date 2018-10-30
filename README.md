@@ -8,49 +8,29 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Xcode 9 and later
+* Xcode 9 or later
+* iOS 10 or later
+* Swift 4 or higher
 
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Clone the project into your local repository
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+Use terminal and navigate to the project repo, and run
 
 ```
-until finished
+pod install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+to install dependencies
 
-## Running the tests
+After finish, open the workspace xcode project.
 
-Explain how to run the automated tests for this system
+Change the signing to your developer account.
 
-### Break down into end to end tests
+Your should able to run the project on your phone or simulator now.
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Dependencies
 
