@@ -99,13 +99,10 @@ class BooksofCategoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if bookList.count == 0 {
             //display inital empty msg
-            self.tableView.setEmptyMessage("")
-            //if fetching more than 3 sec, display alternative empty msg
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.tableView.setEmptyMessage("Unable to fetch data. Please check your connection")
-                self.hideIndicator()
-            }
-        } else {
+            self.tableView.setEmptyMessage("Fetching data. Please wait..")
+
+        }
+        else {
             self.tableView.removeMsg()
         }
         return bookList.count

@@ -49,13 +49,9 @@ class BookCategoryTableViewController: UITableViewController {
         
         if categories.count == 0 {
             //display inital empty msg
-            self.tableView.setEmptyMessage("")
-            //display alternative empty msg after 3 sec
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.tableView.setEmptyMessage("Unable to fetch data. Please check your connection")
-                self.hideIndicator()
-            }
-        } else {
+            self.tableView.setEmptyMessage("Fetching data. Please wait..")
+        }
+        else {
             self.tableView.removeMsg()
         }
         return categories.count
