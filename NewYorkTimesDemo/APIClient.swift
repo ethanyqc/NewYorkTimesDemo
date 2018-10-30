@@ -70,7 +70,7 @@ class APIClient: NSObject {
         }
     }
     
-    
+    //completion handler for fetch all the book of the chosen input of category
     func fetchBooksofCategory(category: String, completion: @escaping (BookList) -> Void) {
         if let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).last {
             booksCacheURL = cacheURL.appendingPathComponent("\(category).json")
