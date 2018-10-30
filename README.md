@@ -28,5 +28,5 @@ Your should able to run the project on your phone or simulator now.
 ## Dependencies Used
 
 * [Alamofire](https://github.com/Alamofire/Alamofire) - HTTP Networking
-* [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper) - Objectmapper
+* [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper) - For mapping JSON object
 
