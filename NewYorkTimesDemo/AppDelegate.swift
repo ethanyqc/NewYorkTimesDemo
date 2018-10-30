@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Thread.sleep(forTimeInterval: 2)
+        //set default order to by rank
         if UserDefaults.standard.string(forKey: "order") == nil {
             UserDefaults.standard.set("rank", forKey: "order")
         }        

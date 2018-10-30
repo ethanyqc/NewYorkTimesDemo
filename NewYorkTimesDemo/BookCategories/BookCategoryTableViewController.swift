@@ -10,35 +10,53 @@ import UIKit
 
 class BookCategoryTableViewController: UITableViewController {
     var categories : [Category] = []
-    
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIClient.shared.fetchAllCategories { (cl) in
-            if let x = cl.results {
-                self.categories = x
+        self.activityIndicator.hidesWhenStopped = true
+        showIndicator() //start spinner
+        APIClient.shared.fetchAllCategories { (categoryObj) in
+            if let results = categoryObj.results {
+                self.categories = results //populate array
                 DispatchQueue.main.async {
-                   self.tableView.reloadData()
+                   self.tableView.reloadData() //update UI
+                   self.hideIndicator() //stop spinner when complete
                 }
                 
             }
         }
     }
+    
+    //function to show the spinner
+    func showIndicator() {
+        self.navigationItem.titleView = self.activityIndicator
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+    }
+    //function to hide the spinner
+    func hideIndicator() {
+        self.activityIndicator.stopAnimating()
+        self.navigationItem.titleView = nil
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         if categories.count == 0 {
-            self.tableView.setEmptyMessage("Empty")
-            self.tableView.isScrollEnabled = false
+            //display inital empty msg
+            self.tableView.setEmptyMessage("")
+            //display alternative empty msg after 3 sec
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.tableView.setEmptyMessage("Unable to fetch data. Please check your connection")
+                self.hideIndicator()
+            }
         } else {
-            self.tableView.restore()
-            self.tableView.isScrollEnabled = true
+            self.tableView.removeMsg()
         }
         return categories.count
     }

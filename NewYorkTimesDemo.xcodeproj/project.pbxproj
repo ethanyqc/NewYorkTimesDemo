@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E80D50522C81909CAD4874A /* Pods_NewYorkTimesDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8944D5E28245A97A4A358C53 /* Pods_NewYorkTimesDemo.framework */; };
+		424B61DF2187745B009F3B87 /* RoundTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424B61DE2187745B009F3B87 /* RoundTextView.swift */; };
 		426EF10A21854F89009E69F5 /* BookCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EF10921854F89009E69F5 /* BookCategoryTableViewController.swift */; };
 		426EF10C2185500F009E69F5 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EF10B2185500F009E69F5 /* APIClient.swift */; };
 		426EF10E21855A03009E69F5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EF10D21855A03009E69F5 /* Category.swift */; };
@@ -17,13 +18,14 @@
 		4271598F21869E5000A0AD4B /* BookDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4271598E21869E5000A0AD4B /* BookDetail.storyboard */; };
 		4271599121869FB200A0AD4B /* BookDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271599021869FB200A0AD4B /* BookDetailTableViewController.swift */; };
 		42D12602218235C20057F6CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D12601218235C20057F6CE /* AppDelegate.swift */; };
-		42D12607218235C20057F6CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D12605218235C20057F6CE /* Main.storyboard */; };
+		42D12607218235C20057F6CE /* BookCategories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D12605218235C20057F6CE /* BookCategories.storyboard */; };
 		42D1260A218235C20057F6CE /* NewYorkTimesDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42D12608218235C20057F6CE /* NewYorkTimesDemo.xcdatamodeld */; };
 		42D1260C218235C60057F6CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42D1260B218235C60057F6CE /* Assets.xcassets */; };
 		42D1260F218235C60057F6CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D1260D218235C60057F6CE /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		424B61DE2187745B009F3B87 /* RoundTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTextView.swift; sourceTree = "<group>"; };
 		426EF10921854F89009E69F5 /* BookCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCategoryTableViewController.swift; sourceTree = "<group>"; };
 		426EF10B2185500F009E69F5 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		426EF10D21855A03009E69F5 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -34,7 +36,7 @@
 		4271599021869FB200A0AD4B /* BookDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailTableViewController.swift; sourceTree = "<group>"; };
 		42D125FE218235C20057F6CE /* NewYorkTimesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewYorkTimesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D12601218235C20057F6CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		42D12606218235C20057F6CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		42D12606218235C20057F6CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/BookCategories.storyboard; sourceTree = "<group>"; };
 		42D12609218235C20057F6CE /* NewYorkTimesDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewYorkTimesDemo.xcdatamodel; sourceTree = "<group>"; };
 		42D1260B218235C60057F6CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42D1260E218235C60057F6CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		4271598721867DAB00A0AD4B /* BookCategories */ = {
 			isa = PBXGroup;
 			children = (
-				42D12605218235C20057F6CE /* Main.storyboard */,
+				42D12605218235C20057F6CE /* BookCategories.storyboard */,
 				426EF10921854F89009E69F5 /* BookCategoryTableViewController.swift */,
 			);
 			path = BookCategories;
@@ -90,6 +92,14 @@
 				4271599021869FB200A0AD4B /* BookDetailTableViewController.swift */,
 			);
 			path = BookDetail;
+			sourceTree = "<group>";
+		};
+		427401DB218802AA00FB6780 /* TextViewCustomClass */ = {
+			isa = PBXGroup;
+			children = (
+				424B61DE2187745B009F3B87 /* RoundTextView.swift */,
+			);
+			path = TextViewCustomClass;
 			sourceTree = "<group>";
 		};
 		42D125F5218235C20057F6CE = {
@@ -115,6 +125,7 @@
 			children = (
 				42D12601218235C20057F6CE /* AppDelegate.swift */,
 				426EF10B2185500F009E69F5 /* APIClient.swift */,
+				427401DB218802AA00FB6780 /* TextViewCustomClass */,
 				4271598721867DAB00A0AD4B /* BookCategories */,
 				4271598821867DD200A0AD4B /* Books */,
 				4271598D21869E3200A0AD4B /* BookDetail */,
@@ -208,7 +219,7 @@
 				4271598F21869E5000A0AD4B /* BookDetail.storyboard in Resources */,
 				4271598A21867DF000A0AD4B /* Books.storyboard in Resources */,
 				42D1260C218235C60057F6CE /* Assets.xcassets in Resources */,
-				42D12607218235C20057F6CE /* Main.storyboard in Resources */,
+				42D12607218235C20057F6CE /* BookCategories.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +275,7 @@
 			files = (
 				426EF10A21854F89009E69F5 /* BookCategoryTableViewController.swift in Sources */,
 				426EF10E21855A03009E69F5 /* Category.swift in Sources */,
+				424B61DF2187745B009F3B87 /* RoundTextView.swift in Sources */,
 				426EF11021855A0E009E69F5 /* Book.swift in Sources */,
 				4271599121869FB200A0AD4B /* BookDetailTableViewController.swift in Sources */,
 				42D1260A218235C20057F6CE /* NewYorkTimesDemo.xcdatamodeld in Sources */,
@@ -276,12 +288,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		42D12605218235C20057F6CE /* Main.storyboard */ = {
+		42D12605218235C20057F6CE /* BookCategories.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				42D12606218235C20057F6CE /* Base */,
 			);
-			name = Main.storyboard;
+			name = BookCategories.storyboard;
 			sourceTree = "<group>";
 		};
 		42D1260D218235C60057F6CE /* LaunchScreen.storyboard */ = {
@@ -419,6 +431,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y3Z2A9TMTE;
 				INFOPLIST_FILE = NewYorkTimesDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -438,6 +451,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y3Z2A9TMTE;
 				INFOPLIST_FILE = NewYorkTimesDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

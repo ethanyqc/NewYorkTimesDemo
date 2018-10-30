@@ -12,46 +12,52 @@ import AlamofireObjectMapper
 
 class APIClient: NSObject {
     static let shared = APIClient()
+    //define constants
     let apiKey = "50d2398ce01a45d89a6da1be6468772f"
-    let url = "https://api.nytimes.com/svc/books/v3/lists/names.json"
+    let urlCategories = "https://api.nytimes.com/svc/books/v3/lists/names.json"
+    let urlBooks = "https://api.nytimes.com/svc/books/v3/lists.json"
     
-    var userCacheURL: URL?
-    let userCacheQueue = OperationQueue()
+    //cache url for cacheing the categories
+    var categoriesCacheURL: URL?
+    let categoriesCacheQueue = OperationQueue()
     
-    var userCacheURL2: URL?
-    let userCacheQueue2 = OperationQueue()
+    //cache url for cacheing the books
+    var booksCacheURL: URL?
+    let booksCacheQueue = OperationQueue()
     
+    //completion handler for fetch all the categories
     func fetchAllCategories(completion: @escaping (CategoryList) -> Void) {
         
         if let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
-            userCacheURL = cacheURL.appendingPathComponent("category.json")
+            categoriesCacheURL = cacheURL.appendingPathComponent("category.json")
         }
         
-        guard let url = URL(string: url) else {
+        guard let url = URL(string: urlCategories) else {
             return
         }
         Alamofire.request(url,
                           method: .get,
-                          parameters: ["api-key" : "50d2398ce01a45d89a6da1be6468772f"
+                          parameters: ["api-key" : apiKey
                                        ])
         .validate()
         .responseObject { (response: DataResponse<CategoryList>) in
-            if let weatherResponse = response.result.value {
-                completion(weatherResponse)
-                if (self.userCacheURL != nil) {
-                    self.userCacheQueue.addOperation() {
-                        if let stream = OutputStream(url: self.userCacheURL!, append: false) {
+            if let value = response.result.value {
+                completion(value)
+                //save the data to the cache when get response by output stream
+                if (self.categoriesCacheURL != nil) {
+                    self.categoriesCacheQueue.addOperation() {
+                        if let stream = OutputStream(url: self.categoriesCacheURL!, append: false) {
                             stream.open()
-                            JSONSerialization.writeJSONObject(weatherResponse.toJSON(), to: stream, options: [.prettyPrinted], error: nil)
+                            JSONSerialization.writeJSONObject(value.toJSON(), to: stream, options: [.prettyPrinted], error: nil)
                             stream.close()
                         }
                     }
                 }
             }
-            else if (self.userCacheURL != nil) {
-                // Read the data from the cache
-                self.userCacheQueue.addOperation() {
-                    if let stream = InputStream(url: self.userCacheURL!) {
+            else if (self.categoriesCacheURL != nil) {
+                // retrive the data from the cache if no response
+                self.categoriesCacheQueue.addOperation() {
+                    if let stream = InputStream(url: self.categoriesCacheURL!) {
                         stream.open()
                         if let data = (try? JSONSerialization.jsonObject(with: stream, options: [])) as? [String: Any] {
                             completion(CategoryList(JSON: data)!)
@@ -66,34 +72,35 @@ class APIClient: NSObject {
     
     
     func fetchBooksofCategory(category: String, completion: @escaping (BookList) -> Void) {
-        if let cacheURL2 = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
-            userCacheURL2 = cacheURL2.appendingPathComponent("\(category).json")
+        if let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).last {
+            booksCacheURL = cacheURL.appendingPathComponent("\(category).json")
         }
-        guard let url = URL(string: "https://api.nytimes.com/svc/books/v3/lists.json") else {
+        guard let url = URL(string: urlBooks) else {
             return
         }
         Alamofire.request(url,
                           method: .get,
-                          parameters: ["api-key" : "50d2398ce01a45d89a6da1be6468772f",
+                          parameters: ["api-key" : apiKey,
                                        "list" : category])
             .validate()
             .responseObject { (response: DataResponse<BookList>) in
-                if let weatherResponse = response.result.value {
-                    completion(weatherResponse)
-                    if (self.userCacheURL2 != nil) {
-                        self.userCacheQueue2.addOperation() {
-                            if let stream = OutputStream(url: self.userCacheURL2!, append: false) {
+                if let value = response.result.value {
+                    completion(value)
+                    //save the data to the cache when get response by output stream
+                    if (self.booksCacheURL != nil) {
+                        self.booksCacheQueue.addOperation() {
+                            if let stream = OutputStream(url: self.booksCacheURL!, append: false) {
                                 stream.open()
-                                JSONSerialization.writeJSONObject(weatherResponse.toJSON(), to: stream, options: [.prettyPrinted], error: nil)
+                                JSONSerialization.writeJSONObject(value.toJSON(), to: stream, options: [.prettyPrinted], error: nil)
                                 stream.close()
                             }
                         }
                     }
                 }
-                else if (self.userCacheURL2 != nil) {
-                    // Read the data from the cache
-                    self.userCacheQueue2.addOperation() {
-                        if let stream = InputStream(url: self.userCacheURL2!) {
+                else if (self.booksCacheURL != nil) {
+                    // retrive the data from the cache if no response from input stream
+                    self.booksCacheQueue.addOperation() {
+                        if let stream = InputStream(url: self.booksCacheURL!) {
                             stream.open()
                             if let data = (try? JSONSerialization.jsonObject(with: stream, options: [])) as? [String: Any] {
                                 completion(BookList(JSON: data)!)
@@ -110,23 +117,22 @@ class APIClient: NSObject {
     
 }
 
+//extention for tableview to display empty data msg
 extension UITableView {
     
     func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = message
-        messageLabel.textColor = .black
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = .center;
-        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
-        messageLabel.sizeToFit()
-        
-        self.backgroundView = messageLabel;
-        self.separatorStyle = .none;
+        let emptMsg = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        emptMsg.text = message
+        emptMsg.textColor = .black
+        emptMsg.numberOfLines = 0
+        emptMsg.textAlignment = .center
+        emptMsg.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        emptMsg.sizeToFit()
+        self.backgroundView = emptMsg
     }
     
-    func restore() {
+    //remove the messge
+    func removeMsg() {
         self.backgroundView = nil
-        self.separatorStyle = .singleLine
     }
 }

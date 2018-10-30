@@ -13,23 +13,33 @@ class BookDetailTableViewController: UITableViewController {
     var review : [Review] = []
     var amazonLinkStr = ""
     @IBOutlet weak var bookTitle: UITextView!
-    @IBOutlet weak var bookAuthor: UILabel!
+    @IBOutlet weak var bookAuthor: UITextView!
     @IBOutlet weak var bookDescrpt: UITextView!
     @IBOutlet weak var bookLink: UITextView!
     @IBOutlet weak var amazonLink: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        amazonLink.text = amazonLinkStr
-        for x in bookdetail {
-            bookTitle.text = x.title
-            bookAuthor.text = x.author
-            bookDescrpt.text = x.description
+        //update ui, if empty, show as Not Avaliable
+        amazonLink.text = (amazonLinkStr == "") ? "Not Avaliable" : amazonLinkStr
+        if let detail = bookdetail.first { //unwrap book details
+            //update ui
+            bookTitle.text = detail.title
+            bookAuthor.text = detail.author
+            bookDescrpt.text = detail.description
         }
-        for y in review {
-            bookLink.text = y.book_review_link
+        if let bookReviewLink = review.first {//unwrap review links
+            //update ui, if empty, show as Not Avaliable
+           bookLink.text = (bookReviewLink.book_review_link == "") ? "Not Avaliable" : bookReviewLink.book_review_link
         }
 
+    }
+    //change the ui of header view
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        header?.textLabel?.textColor = UIColor.black
     }
 
 
