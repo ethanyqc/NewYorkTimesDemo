@@ -9,9 +9,9 @@ The app caches data locally for offline use, cache data is updated everytime whe
 
 ### Prerequisites
 
-* Xcode 9 or later
-* iOS 10 or later
-* Swift 4 or higher
+* Xcode 9.3 or above
+* iOS 10 or above
+* Swift 4 or above
 
 
 ### Installing
