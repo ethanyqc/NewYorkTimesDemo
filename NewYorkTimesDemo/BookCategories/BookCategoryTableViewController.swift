@@ -11,17 +11,24 @@ import UIKit
 class BookCategoryTableViewController: UITableViewController {
     var categories : [Category] = []
     let activityIndicator = UIActivityIndicatorView(style: .gray)
+    var repeatFetching : Timer! //refetch timer
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.activityIndicator.hidesWhenStopped = true
         showIndicator() //start spinner
+        fetchingData()
+        repeatFetching = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(fetchingData), userInfo: nil, repeats: true)
+        
+    }
+    @objc func fetchingData(){
         APIClient.shared.fetchAllCategories { (categoryObj) in
             if let results = categoryObj.results {
                 self.categories = results //populate array
                 DispatchQueue.main.async {
-                   self.tableView.reloadData() //update UI
-                   self.hideIndicator() //stop spinner when complete
+                    self.tableView.reloadData() //update UI
+                    self.hideIndicator() //stop spinner when complete
+                    self.repeatFetching.invalidate()
                 }
                 
             }
@@ -52,6 +59,7 @@ class BookCategoryTableViewController: UITableViewController {
             self.tableView.setEmptyMessage("Fetching data. Please wait..")
         }
         else {
+            self.repeatFetching.invalidate()
             self.tableView.removeMsg()
         }
         return categories.count

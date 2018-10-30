@@ -12,12 +12,18 @@ class BooksofCategoryTableViewController: UITableViewController {
     var list_name_encoded = ""
     var bookList : [Book] = []
     var names : [String] = []
+    var repeatFetching: Timer!
     let activityIndicator = UIActivityIndicatorView(style: .gray)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.activityIndicator.hidesWhenStopped = true
         showIndicator() //display spinner
         setUpSortButton() //set up sort button
+        fetchingData()
+        repeatFetching = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(fetchingData), userInfo: nil, repeats: true)
+    }
+    
+    @objc func fetchingData(){
         APIClient.shared.fetchBooksofCategory(category: list_name_encoded) { (books) in
             //get the user preference of ranking order from user default
             if let orderPref = UserDefaults.standard.string(forKey: "order") {
@@ -31,14 +37,16 @@ class BooksofCategoryTableViewController: UITableViewController {
                 }
             }
             else{
-               self.bookList = books.results!
+                self.bookList = books.results!
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.hideIndicator()
+                self.repeatFetching.invalidate()
             }
         }
     }
+    
     //function to show spinner
     func showIndicator() {
         self.navigationItem.titleView = self.activityIndicator
@@ -103,6 +111,7 @@ class BooksofCategoryTableViewController: UITableViewController {
 
         }
         else {
+            self.repeatFetching.invalidate()
             self.tableView.removeMsg()
         }
         return bookList.count
